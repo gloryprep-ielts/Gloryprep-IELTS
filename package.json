@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development tsx watch server/_core/index.ts",
     "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vite build --outDir dist/public",
-    "build:server": "esbuild server/_core/index.ts --bundle --platform=node --target=node20 --outfile=dist/server/index.js --external:vite --external:rollup --external:esbuild --external:tsx --minify",
+    "build:server": "esbuild server/_core/index.ts --bundle --platform=node --target=node20 --outfile=dist/server/index.js --format=esm --external:vite --external:rollup --external:tailwindcss --external:framer-motion --minify",
     "start": "cross-env NODE_ENV=production node dist/server/index.js",
     "check": "tsc --noEmit",
     "format": "prettier --write .",

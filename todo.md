@@ -295,5 +295,5 @@
 - [x] Isolate auth to Payment/Study Shop flow (login required only for purchases)
 - [x] Fix Light/Dark mode (ensure toggle works and colors are consistent)
 - [x] Standardize homepage logo to Ember-Orange (remove any remaining blue logos)
-- [x] Refresh v4.0 ZIP (no node_modules, no .env, no .git)
-- [x] Provide final pnpm deployment commands for Vercel
+- [ ] Refresh v4.0 ZIP (no node_modules, no .env, no .git)
+- [ ] Provide final pnpm deployment commands for Vercel
