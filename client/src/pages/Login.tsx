@@ -14,6 +14,8 @@ export default function Login() {
   const utils = trpc.useUtils();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const requestedPath = new URLSearchParams(window.location.search).get("next");
+  const checkoutPath = requestedPath?.startsWith("/store/checkout/") ? requestedPath : null;
 
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: data => {
@@ -23,7 +25,7 @@ export default function Login() {
       const role = data.user.role;
       // Small delay + clear cache hint to ensure redirect works
       setTimeout(() => {
-        const target = role === "admin" ? "/admin" : "/";
+        const target = role === "admin" ? "/admin" : checkoutPath ?? "/";
         window.location.replace(target);
       }, 150);
     },
@@ -40,7 +42,7 @@ export default function Login() {
       const role = data.user.role;
       // Small delay + clear cache hint to ensure redirect works
       setTimeout(() => {
-        const target = role === "admin" ? "/admin" : "/";
+        const target = role === "admin" ? "/admin" : checkoutPath ?? "/";
         window.location.replace(target);
       }, 150);
     },

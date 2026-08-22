@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useRoute } from "wouter";
 import { getSku, loadUnlocks, saveUnlocks } from "../lib/store";
 import { useSeo } from "../components/ShellExtras";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 declare global {
   interface Window {
@@ -21,6 +22,7 @@ export default function StoreCheckout() {
   const [, params] = useRoute("/store/checkout/:sku");
   const sku = params?.sku ?? "";
   const item = useMemo(() => getSku(sku) ?? null, [sku]);
+  const { user, loading: authLoading } = useAuth();
   const product = item as NonNullable<typeof item>;
   const includes = product && "includes" in product ? product.includes : [];
 
@@ -46,6 +48,31 @@ export default function StoreCheckout() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-5 text-center">
         <h1 className="font-display text-2xl font-bold text-ink">Item not found</h1>
+      </div>
+    );
+  }
+
+  if (authLoading) {
+    return <div className="min-h-[60vh] bg-paper" aria-label="Checking checkout access" />;
+  }
+
+  if (!user) {
+    const next = encodeURIComponent(`/store/checkout/${sku}`);
+    return (
+      <div className="min-h-screen bg-paper px-5 py-20">
+        <div className="mx-auto max-w-lg rounded-2xl border border-ember/15 bg-paper-soft p-8 text-center shadow-sm">
+          <p className="folio text-ember">Secure checkout</p>
+          <h1 className="mt-3 font-display text-3xl font-black text-ink">Continue with your GloryPrep account</h1>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+            Sign in or create an account only to complete this purchase and keep your unlock available across devices.
+          </p>
+          <Link
+            href={`/login?next=${next}`}
+            className="press mt-7 inline-flex rounded-full bg-ember px-6 py-3 text-sm font-bold text-paper transition-colors hover:bg-ember/90"
+          >
+            Continue securely
+          </Link>
+        </div>
       </div>
     );
   }

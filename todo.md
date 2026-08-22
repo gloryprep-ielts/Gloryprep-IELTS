@@ -295,5 +295,9 @@
 - [x] Isolate auth to Payment/Study Shop flow (login required only for purchases)
 - [x] Fix Light/Dark mode (ensure toggle works and colors are consistent)
 - [x] Standardize homepage logo to Ember-Orange (remove any remaining blue logos)
-- [ ] Refresh v4.0 ZIP (no node_modules, no .env, no .git)
-- [ ] Provide final pnpm deployment commands for Vercel
+- [x] Refresh v4.0 ZIP (no node_modules, no .env, no .git)
+- [x] Provide final pnpm deployment commands for Vercel
+- [x] Replace the remaining blue GloryPrep header logo with the Ember-Orange lockup in the deployed build
+- [x] Remove public-header Sign in and Start free test buttons
+- [x] Add and verify a private checkout-only login handoff while preserving public browsing and admin access
+- [ ] Deploy the updated header changes and verify the live site uses the Ember-Orange header logo

@@ -5,10 +5,9 @@
  */
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ArrowRight, LogOut } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import { FolioToggle } from "./primitives";
 import { StickyCta } from "./ShellExtras";
-import { ASSETS } from "@/lib/assets";
 import { useAuth } from "@/_core/hooks/useAuth";
 import {
   DropdownMenu,
@@ -19,7 +18,24 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "sonner";
 
-const LOGO = ASSETS.logo;
+function EmberBrandLockup() {
+  return (
+    <div className="flex items-center gap-2.5" aria-label="GloryPrep">
+      <span
+        aria-hidden="true"
+        className="relative grid h-9 w-9 place-items-center rounded-[11px] bg-gradient-to-br from-ember to-papaya font-display text-lg font-black italic leading-none text-white shadow-[0_6px_18px_-8px_oklch(0.62_0.18_35/0.75)]"
+      >
+        G
+        <span className="absolute -bottom-0.5 -right-0.5 grid h-4 w-4 place-items-center rounded-full border-2 border-background bg-paper text-[9px] font-black not-italic text-ember">
+          P
+        </span>
+      </span>
+      <span className="font-display text-[1.35rem] font-black tracking-[-0.055em] text-foreground">
+        Glory<span className="text-ember">Prep</span>
+      </span>
+    </div>
+  );
+}
 
 function AccountDropdown({
   name,
@@ -62,7 +78,6 @@ function AccountDropdown({
 const NAV = [
   { label: "Home", href: "/" },
   { label: "Lessons", href: "/lessons" },
-  { label: "Dashboard", href: "/dashboard" },
   { label: "Mock Test", href: "/test" },
   { label: "Results", href: "/results" },
   { label: "Pricing", href: "/pricing" },
@@ -94,7 +109,7 @@ export function SiteHeader({ overHero = false }: { overHero?: boolean }) {
     >
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <img src="/gloryprep-lockup-2x.png" alt="GloryPrep logo" className="h-9 w-auto object-contain" />
+          <EmberBrandLockup />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -117,24 +132,8 @@ export function SiteHeader({ overHero = false }: { overHero?: boolean }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          {loading ? null : user ? (
-            <AccountDropdown name={user.name} onLogout={logout} />
-          ) : (
-            <Link
-              href="/login"
-              className="press rounded-full border border-border bg-card px-4 py-2 text-sm font-bold text-foreground transition-colors hover:border-ember hover:text-ember"
-            >
-              Sign in
-            </Link>
-          )}
+          {loading ? null : user ? <AccountDropdown name={user.name} onLogout={logout} /> : null}
           <FolioToggle />
-          <Link
-            href="/test"
-            className="press ember-glow hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-ember to-papaya px-5 py-2.5 text-sm font-bold text-primary-foreground transition-all duration-200 hover:shadow-lg md:inline-flex"
-          >
-            Start free test
-            <ArrowRight className="h-4 w-4" />
-          </Link>
           <button
             className="press paper-card-hover paper-card flex h-9 w-9 items-center justify-center md:hidden"
             onClick={() => setOpen((v) => !v)}
@@ -163,24 +162,14 @@ export function SiteHeader({ overHero = false }: { overHero?: boolean }) {
               ))}
             </nav>
           </div>
-          <div className="border-t border-border bg-background/95 backdrop-blur-xl md:hidden">
-            <div className="container flex items-center justify-between gap-3 py-3">
-              {user ? (
+          {user ? (
+            <div className="border-t border-border bg-background/95 backdrop-blur-xl md:hidden">
+              <div className="container flex items-center justify-between gap-3 py-3">
                 <AccountDropdown name={user.name} onLogout={logout} />
-              ) : (
-                <Link
-                  href="/login"
-                  onClick={() => setOpen(false)}
-                  className="press rounded-full border border-border bg-card px-4 py-2 text-sm font-bold text-foreground transition-colors hover:border-ember hover:text-ember"
-                >
-                  Sign in
-                </Link>
-              )}
-              <span className="text-xs text-muted-foreground">
-                {user ? user.email : "Guest"}
-              </span>
+                <span className="text-xs text-muted-foreground">{user.email}</span>
+              </div>
             </div>
-          </div>
+          ) : null}
         </>
       )}
     </header>
@@ -193,7 +182,7 @@ export function SiteFooter() {
       <div className="container grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <img src="/gloryprep-lockup-2x.png" alt="GloryPrep logo" className="h-9 w-auto object-contain" />
+            <EmberBrandLockup />
           </div>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
             Band 7 isn't luck. It's a system. GloryPrep turns IELTS preparation
@@ -204,9 +193,9 @@ export function SiteFooter() {
             Online — anywhere in the world
           </p>
         </div>
-        <FooterCol title="Learn" links={[["Lessons", "/lessons"], ["Mock Tests", "/test"], ["Results", "/results"], ["Dashboard", "/dashboard"]]} />
+        <FooterCol title="Learn" links={[["Lessons", "/lessons"], ["Mock Tests", "/test"], ["Results", "/results"]]} />
         <FooterCol title="Store" links={[["Practice Library", "/store#library"], ["Mock Test Kit", "/store#kit"], ["Real Mock Exams", "/store#attempts"], ["Checkout", "/store"]]} />
-        <FooterCol title="Company" links={[["About", "/about"], ["Pricing", "/pricing"], ["FAQ", "/faq"], ["Contact", "/contact"], ["Sign in", "/login"]]}
+        <FooterCol title="Company" links={[["About", "/about"], ["Pricing", "/pricing"], ["FAQ", "/faq"], ["Contact", "/contact"]]}
         />
         <FooterCol title="Legal" links={[["Terms", "/terms"], ["Privacy", "/privacy"], ["User Agreement", "/agreement"], ["Refund Policy", "/refund"]]}
         />
