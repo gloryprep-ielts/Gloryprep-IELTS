@@ -1,0 +1,8 @@
+# GloryPrep — robots.txt
+# https://gloryprep.com (replace with your production domain)
+
+User-agent: *
+Allow: /
+
+# Sitemap for Google Search Console
+Sitemap: https://gloryprep.com/sitemap.xml

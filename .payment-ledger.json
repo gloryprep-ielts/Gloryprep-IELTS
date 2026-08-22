@@ -1,0 +1,14 @@
+{
+  "purchases": [
+    {
+      "tranId": "GP-ATTEMP-MSXB1TO7",
+      "sku": "lex-attempt-reading",
+      "title": "Real Mock Exam — Reading",
+      "amountUsd": 0.5,
+      "email": "test@example.com",
+      "paypalOrderId": "27N80007WY798873N",
+      "status": "pending",
+      "createdAt": "2026-08-17T14:04:24.084Z"
+    }
+  ]
+}

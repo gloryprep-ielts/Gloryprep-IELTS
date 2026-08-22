@@ -1,0 +1,22 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/(assets|apple-touch-icon.png|favicon-16x16.png|favicon-32x32.png|favicon-48x48.png|favicon-64x64.png|gloryprep-lockup.png|gloryprep-lockup-2x.png|icon-192.png|icon-512.png|hero-study-desk.webp|hero-texture.webp)/(.*)", "destination": "/$1/$2" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ],
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install",
+  "outputDirectory": "dist/public"
+}
